@@ -5,9 +5,15 @@ import torch
 
 app = FastAPI()
 
-model_dir = "./Mistral-7B-v0.1"
-tokenizer = AutoTokenizer.from_pretrained(model_dir)
-model = AutoModelForCausalLM.from_pretrained(model_dir)
+tokenizer = AutoTokenizer.from_pretrained(
+    "mistralai/Mistral-7B-v0.1",
+    cache_dir="./Mistral-7B-v0.1",
+    use_fast=False                   # Force slow tokenizer!
+)
+model = AutoModelForCausalLM.from_pretrained(
+    "mistralai/Mistral-7B-v0.1",
+    cache_dir="./Mistral-7B-v0.1"
+)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = model.to(device)
 
